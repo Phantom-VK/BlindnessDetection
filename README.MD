@@ -67,8 +67,7 @@ Model architecture:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/diabetic-retinopathy-detection.git
-cd diabetic-retinopathy-detection
+git clone https://github.com/Phantom-VK/BlindnessDetection.git
 ```
 
 2. Create a virtual environment (recommended):
