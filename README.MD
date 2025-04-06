@@ -85,11 +85,11 @@ pip install -r requirements.txt
 4. Download pre-trained models:
    - Download the models from [Kaggle](https://www.kaggle.com/models/anettvarghese/blindness_efficentnetb0)
    - Place the model files in the `models/` directory:
-     - `models/best_model_fold_1.pth`
-     - `models/best_model_fold_2.pth`
-     - `models/best_model_fold_3.pth`
-     - `models/best_model_fold_4.pth`
-     - `models/best_model_fold_5.pth`
+     - `models/best_model_fold_1 (1).pth`
+     - `models/best_model_fold_2 (1).pth`
+     - `models/best_model_fold_3 (1).pth`
+     - `models/best_model_fold_4 (1).pth`
+     - `models/best_model_fold_5 (1).pth`
 
 ## 💻 Usage
 
