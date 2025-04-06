@@ -1,0 +1,96 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetic Retinopathy Detection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 2rem;
+        }
+        .main-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header-img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 1.5rem;
+        }
+        .upload-container {
+            border: 2px dashed #dee2e6;
+            border-radius: 5px;
+            padding: 2rem;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        .btn-primary {
+            background-color: #198754;
+            border-color: #198754;
+        }
+        .btn-primary:hover {
+            background-color: #157347;
+            border-color: #146c43;
+        }
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container main-container">
+        <h1 class="text-center mb-4">Diabetic Retinopathy Detection</h1>
+        <p class="lead text-center">Upload a fundus image to detect diabetic retinopathy severity</p>
+
+        <div class="upload-container">
+            <form action="/predict" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Upload fundus image</label>
+                    <input class="form-control" type="file" id="formFile" name="file" accept=".jpg,.jpeg,.png">
+                    <div class="form-text">Supported formats: JPG, JPEG, PNG</div>
+                </div>
+                <button type="submit" class="btn btn-primary">Analyze Image</button>
+            </form>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">What is Diabetic Retinopathy?</h5>
+                        <p class="card-text">Diabetic retinopathy is a diabetes complication that affects the eyes. It's caused by damage to the blood vessels in the retina (the light-sensitive tissue at the back of the eye).</p>
+                        <a href="/about" class="btn btn-outline-secondary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">How It Works</h5>
+                        <p class="card-text">Our AI system uses deep learning models (EfficientNet) trained on thousands of fundus images to detect and classify diabetic retinopathy into five severity levels.</p>
+                        <a href="/about" class="btn btn-outline-secondary">Technical Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>This tool is for educational purposes only. It is not a substitute for professional medical advice.</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+

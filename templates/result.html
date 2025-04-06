@@ -1,0 +1,130 @@
+<!-- templates/result.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DR Detection Results</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 2rem;
+        }
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .result-heading {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .result-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 1.5rem;
+        }
+        .severity-badge {
+            font-size: 1.2rem;
+            padding: 0.5rem 1rem;
+        }
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: #6c757d;
+        }
+        .dr-info {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container main-container">
+        <h1 class="text-center result-heading">Diabetic Retinopathy Analysis Results</h1>
+
+        <div class="row">
+            <div class="col-md-12 text-center mb-4">
+                <h4>Uploaded Image:</h4>
+                <img src="{{ url_for('static', filename='uploads/' + result.filename) }}" alt="Uploaded fundus image" class="img-thumbnail" style="max-height: 300px;">
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Analysis Result</h5>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="text-center">
+                            {% if result.ensemble_prediction.class_id == 0 %}
+                                <span class="badge bg-success severity-badge">No Diabetic Retinopathy</span>
+                            {% elif result.ensemble_prediction.class_id == 1 %}
+                                <span class="badge bg-info severity-badge">Mild DR</span>
+                            {% elif result.ensemble_prediction.class_id == 2 %}
+                                <span class="badge bg-warning severity-badge">Moderate DR</span>
+                            {% elif result.ensemble_prediction.class_id == 3 %}
+                                <span class="badge bg-danger severity-badge">Severe DR</span>
+                            {% elif result.ensemble_prediction.class_id == 4 %}
+                                <span class="badge bg-dark severity-badge">Proliferative DR</span>
+                            {% endif %}
+                        </h3>
+                        <p class="text-center mt-3">Confidence: {{ "%.2f"|format(result.ensemble_prediction.confidence * 100) }}%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Detailed Analysis</h5>
+                    </div>
+                    <div class="card-body">
+                        <img src="data:image/png;base64,{{ result.plot }}" alt="Analysis plot" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dr-info">
+            <h4>What does this mean?</h4>
+            {% if result.ensemble_prediction.class_id == 0 %}
+                <p>No signs of diabetic retinopathy detected. Regular screening is still recommended.</p>
+            {% elif result.ensemble_prediction.class_id == 1 %}
+                <p>Mild nonproliferative diabetic retinopathy (NPDR): Small areas of balloon-like swelling in the retina's tiny blood vessels.</p>
+            {% elif result.ensemble_prediction.class_id == 2 %}
+                <p>Moderate nonproliferative diabetic retinopathy: More significant blockage of blood vessels in the retina, affecting blood supply.</p>
+            {% elif result.ensemble_prediction.class_id == 3 %}
+                <p>Severe nonproliferative diabetic retinopathy: Many blood vessels are blocked, depriving several areas of the retina of blood supply.</p>
+            {% elif result.ensemble_prediction.class_id == 4 %}
+                <p>Proliferative diabetic retinopathy: The most advanced stage where new, fragile blood vessels grow. Serious vision problems may occur.</p>
+            {% endif %}
+
+            <div class="alert alert-warning mt-3">
+                <strong>Important:</strong> This is an automated screening tool and not a substitute for professional medical diagnosis. Please consult with an ophthalmologist for proper diagnosis and treatment.
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12 text-center">
+                <a href="/" class="btn btn-primary">Analyze Another Image</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>This tool is for educational purposes only. It is not a substitute for professional medical advice.</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
